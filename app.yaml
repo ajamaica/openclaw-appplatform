@@ -7,10 +7,10 @@ workers:
     image:
       registry_type: GHCR
       registry: ghcr.io
-      repository: digitalocean-labs/clawdbot-appplatform
+      repository: bikramkgupta/clawdbot-appplatform
       tag: latest
     instance_count: 1
-    instance_size_slug: apps-s-1vcpu-1gb  # Minimum 1GB to avoid heap overflow
+    instance_size_slug: apps-s-1vcpu-1gb-fixed  # Minimum 1GB to avoid heap overflow
     envs:
       # ============================================================
       # REQUIRED
