@@ -313,6 +313,35 @@ To customize, create `rootfs/etc/digitalocean/backup.yaml` in your repo and rebu
 
 ---
 
+## Pre-installing Skills
+
+Skills are npm packages that extend OpenClaw's capabilities. They can be pre-installed automatically at container startup.
+
+### Quick: Environment Variable
+
+Set `OPENCLAW_SKILLS` with a comma-separated list of package specs:
+
+```yaml
+envs:
+  - key: OPENCLAW_SKILLS
+    value: "@openclaw/skill-web-search,@openclaw/skill-code-runner@1.2.3"
+```
+
+### Advanced: YAML Config
+
+For skills baked into the image, edit `rootfs/etc/openclaw/skills.yaml`:
+
+```yaml
+skills:
+  - package: "@openclaw/skill-web-search"
+  - package: "@openclaw/skill-code-runner"
+    version: "1.2.3"
+```
+
+Both sources are merged. When the same package appears in both, the env var takes precedence. Skills are installed as global pnpm packages during the `21-install-skills` init phase.
+
+---
+
 ## AI-Assisted Setup
 
 Want an AI assistant to help deploy and configure OpenClaw? See **[AI-ASSISTED-SETUP.md](AI-ASSISTED-SETUP.md)** for:
@@ -402,6 +431,7 @@ See **[CHEATSHEET.md](CHEATSHEET.md)** for the complete reference.
 |--------------------------|------------------------------------------------|
 | `OPENCLAW_GATEWAY_TOKEN` | Gateway auth token (auto-generated if not set) |
 | `GRADIENT_API_KEY`       | DigitalOcean Gradient AI key                   |
+| `OPENCLAW_SKILLS`        | Comma-separated skill packages to pre-install  |
 | `GITHUB_USERNAME`        | For SSH key fetching                           |
 
 ---
